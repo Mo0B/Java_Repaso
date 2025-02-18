@@ -4,6 +4,6 @@ public class Main {
 
         System.out.println("repaso comandos git");
 
-        System.out.println("tercer comando añadido");
+        System.out.println("quinto comando añadido");
     }
 }
