@@ -4,5 +4,6 @@ public class Main {
 
         system.out.pirintln("repaso comandos git");
 
+        system.out.pirintln("segundo comando añadido");
     }
 }
