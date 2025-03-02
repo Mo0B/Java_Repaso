@@ -8,6 +8,7 @@ public class Main {
         Scanner _teclado = new Scanner(System.in);
         int op = 0, m_100 = 0, m_500 = 0, m_20=0, m_50=0,m_200=0;
         int _save = 0;
+
         // ---------------  MENU -----------------------
         while (op != 5 ) {
             System.out.println("Menu \n Digite Opcion" +
