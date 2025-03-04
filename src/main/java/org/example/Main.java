@@ -1,115 +1,90 @@
 package org.example;
 
+import java.security.KeyStore;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        Scanner _keyinput = new Scanner(System.in);
-        /*
-        int a, b, dado_1, dado_2, total_dado_1 =0, total_dado_2=0;
-        int n = 4;
-        for (int i=1; i<n; i++){
-            System.out.println("------ Lanzamiento "+i+" ------");
-            a = (int) (Math.random() * 6);
-            dado_1 = a + 1;
-            System.out.println("primer dado:"+dado_1);
-            total_dado_1 = total_dado_1 + dado_1;
 
-            b = (int) (Math.random() * 6);
-            dado_2 = b + 1;
-            System.out.println("segundo dado:"+dado_2);
-            total_dado_2 = total_dado_2 + dado_2;
+        int _op = 0, _op2 = 0, _op_aceptar = 0, _op3 = 0;
+        Scanner _teclado = new Scanner(System.in);
+
+        List<Cuenta_Bancaria> _1Lista = new ArrayList<>();
+
+        Cuenta_Bancaria cuenta_1 = new Cuenta_Bancaria(1010, 0, "Brayan");
+        Cuenta_Bancaria cuenta_2 = new Cuenta_Bancaria(6754, 300000, "Jhon");
+        Cuenta_Bancaria cuenta_3 = new Cuenta_Bancaria();
+
+        cuenta_3.set_Titular("David");
+        cuenta_3.set_NumCuenta(2334);
+        cuenta_3.set_Saldo(10000);
+
+        _1Lista.add(cuenta_1);
+        _1Lista.add(cuenta_2);
+        _1Lista.add(cuenta_3);
+
+        for (Cuenta_Bancaria _miLista : _1Lista) {
+            System.out.println(_miLista.get_Titular());
         }
-        System.out.println(" suma primer dado:"+(total_dado_1));
-        System.out.println(" suma segundo dado:"+(total_dado_2));
-        if (total_dado_1>total_dado_2){
-            System.out.println("la total de la suma del primer dado es mayor a la del segundo" +
-                    "\n con una diferencia de: "+(total_dado_1-total_dado_2));
-        } else if (total_dado_1 == total_dado_2){
-            System.out.println("Ambos totales son iguales");
-        } else {
-            System.out.println("El total de al suma del segundo dado es mayor a la del primero" +
-                    "\n con una diferencia de: "+(total_dado_2-total_dado_1));
-        }
-         */
 
-        int jugador_1 = 0;
-        int jugador_2 = 0;
-        String _1 = "", _2 = "";
-        int _save_1 = 0, _save_2 = 0, _save_empate = 0;
-        boolean win_1, win_2, _termino = false;
-        // 1 piedra, 2 papel, 3 tijera
-
+        do {
+            System.out.println("Cuentas Bancaria Registradas");
+            for (int i = 0; i < _1Lista.size(); i++) {
+                System.out.println(i+": "+_1Lista.get(i).get_Titular());
+            }
+            _op = _teclado.nextInt();
+             int _posicion = _op;
             do {
-                win_1 = false;
-                win_2 = false;
-                jugador_1 = (int) (Math.random() * 3) + 1;
-                jugador_2 = (int) (Math.random() * 3) + 1;
+                System.out.println("Esta en la cuenta : " + _1Lista.get(_posicion).get_Titular());
+                System.out.println("\n1. Ingresar Dinero" +
+                        "\n2. Retirar Dinero" +
+                        "\n3. Mostar Informacion" +
+                        "\n0 Salir");
+                _op2 = _teclado.nextInt();
+                switch (_op2) {
+                    case 1 -> {
+                        int _Dinero;
+                        System.out.println("Cuando dinero desea ingresar: ");
+                        _Dinero = _teclado.nextInt();
+                        _1Lista.get(_posicion).Depositar_Dinero(_Dinero);
+                        System.out.println("Digite cuanquier numero para Salir: ");
+                        _op_aceptar = _teclado.nextInt();
+                    }
+                    case 2 -> {
+                        boolean _validacionDinero = false;
+                        int _Dinero;
+                        System.out.println("Cuando dinero desea Retirar: ");
+                        _Dinero = _teclado.nextInt();
+                        _1Lista.get(_posicion).Retirar_Dinero(_Dinero);
+                        _validacionDinero = _1Lista.get(_posicion).Validacion();
+                        while (!_validacionDinero) {
+                            System.out.println("'1' Si desea ingresar otro valor" +
+                                    "\n'2' Si desea Salir ");
+                            _op_aceptar = _teclado.nextInt();
+                            if (_op_aceptar == 1) {
+                                System.out.println("Cuando dinero desea Retirar: ");
+                                _Dinero = _teclado.nextInt();
+                                _1Lista.get(_posicion).Retirar_Dinero(_Dinero);
+                                _validacionDinero = cuenta_1.Validacion();
+                            } else {
+                                _validacionDinero = true;
+                            }
+                        }
 
-                if (jugador_1 == 1) {
-                    _1 = "Piedra";
-                } else if (jugador_1 == 2) {
-                    _1 = "Papel";
-                } else if (jugador_1 == 3) {
-                    _1 = "Tijera";
+                    }
+                    case 3 -> {
+                        System.out.println(_1Lista.get(_posicion).Mostrar_Informacion());
+                        System.out.println("Digite cuanquier numero para Salir: ");
+                        _op_aceptar = _teclado.nextInt();
+                    }
+                    default -> System.out.println("Saliendo ...");
                 }
+            } while (_op2 != 0);
 
-                if (jugador_2 == 1) {
-                    _2 = "Piedra";
-                } else if (jugador_2 == 2) {
-                    _2 = "Papel";
-                } else if (jugador_2 == 3) {
-                    _2 = "Tijera";
-                }
-
-                System.out.println("jugador 1: " + _1);
-                System.out.println("jugador 2: " + _2);
-
-// 1 piedra, 2 papel, 3 tijera
-
-                if (jugador_1 == jugador_2) {
-                    System.out.println("empate");
-                    _save_empate++;
-                } else if (jugador_1 == 1 && jugador_2 == 2) {
-                    System.out.println("Gano 2");
-                    win_2 = true;
-                } else if (jugador_1 == 1 && jugador_2 == 3) {
-                    System.out.println("Gano 1");
-                    win_1 = true;
-                } else if (jugador_1 == 2 && jugador_2 == 1) {
-                    System.out.println("Gano 1");
-                    win_1 = true;
-                } else if (jugador_1 == 2 && jugador_2 == 3) {
-                    System.out.println("Gano 2");
-                    win_2 = true;
-                } else if (jugador_1 == 3 && jugador_2 == 1) {
-                    System.out.println("Gano 2");
-                    win_2 = true;
-                } else if (jugador_1 == 3 && jugador_2 == 2) {
-                    System.out.println("Gano 1");
-                    win_1 = true;
-                }
-
-                if (win_1 && _save_2 <= 1 ) {
-                    _save_1 = _save_1 + 1;
-
-                } else if (win_2 && _save_1 <= 1 ) {
-                    _save_2 = _save_2 + 1;
-                }
-
-
-                System.out.println(_save_empate);
-                System.out.println(_save_1);
-                System.out.println(_save_2);
-            } while (_save_1 < 2  && _save_2 < 2);
-
-
-       if (_save_1 < _save_2){
-           System.out.println("jugador 2 gano la partida");
-       }else{
-           System.out.println("jugador 1 gano la partida");
-       }
+        }while (_op != 0);
     }
 }
